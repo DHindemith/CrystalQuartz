@@ -1,9 +1,11 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
     using CrystalQuartz.Application.Comands.Inputs;
     using CrystalQuartz.Core;
     using CrystalQuartz.Core.SchedulerProviders;
     using Quartz;
+    using System.Threading.Tasks;
 
     public class ResumeJobCommand : AbstractOperationCommand<JobInput>
     {
@@ -11,9 +13,9 @@
         {
         }
 
-        protected override void PerformOperation(JobInput input)
+        protected override Task PerformOperation(JobInput input)
         {
-            Scheduler.ResumeJob(new JobKey(input.Job, input.Group));
+            return Scheduler.ResumeJob(new JobKey(input.Job, input.Group));
         }
     }
 }

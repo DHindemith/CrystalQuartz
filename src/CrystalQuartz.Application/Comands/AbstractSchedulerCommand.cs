@@ -1,15 +1,17 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
     using System;
     using System.Collections.Specialized;
     using System.Linq;
+    using System.Threading.Tasks;
     using CrystalQuartz.Application.Comands.Outputs;
     using CrystalQuartz.Core;
     using CrystalQuartz.Core.SchedulerProviders;
     using CrystalQuartz.WebFramework.Commands;
     using Quartz;
 
-    public abstract class AbstractSchedulerCommand<TInput, TOutput> : AbstractCommand<TInput, TOutput> 
+    public abstract class AbstractSchedulerCommand<TInput, TOutput> : AbstractCommand<TInput, TOutput>
         where TOutput : CommandResultWithErrorDetails, new()
     {
         private readonly ISchedulerProvider _schedulerProvider;
@@ -21,10 +23,7 @@
             _schedulerDataProvider = schedulerDataProvider;
         }
 
-        protected IScheduler Scheduler
-        {
-            get { return _schedulerProvider.Scheduler; }
-        }
+        protected IScheduler Scheduler => _schedulerProvider.Scheduler;
 
         protected ISchedulerDataProvider SchedulerDataProvider
         {
@@ -33,8 +32,7 @@
 
         protected override void HandleError(Exception exception, TInput input, TOutput output)
         {
-            var schedulerProviderException = exception as SchedulerProviderException;
-            if (schedulerProviderException != null)
+            if (exception is SchedulerProviderException schedulerProviderException)
             {
                 NameValueCollection properties = schedulerProviderException.SchedulerInitialProperties;
 

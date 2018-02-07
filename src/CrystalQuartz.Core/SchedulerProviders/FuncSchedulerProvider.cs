@@ -1,4 +1,6 @@
-﻿namespace CrystalQuartz.Core.SchedulerProviders
+﻿using System.Threading.Tasks;
+
+namespace CrystalQuartz.Core.SchedulerProviders
 {
     using System;
     using Quartz;
@@ -18,10 +20,8 @@
 
         public IScheduler Scheduler
         {
-            get
-            {
-                return _factory.Invoke();
-            }
+            get { return _factory.Invoke(); }
+            set { }
         }
     }
 }

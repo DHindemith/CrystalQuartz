@@ -1,8 +1,10 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
     using CrystalQuartz.Application.Comands.Inputs;
     using CrystalQuartz.Core;
     using CrystalQuartz.Core.SchedulerProviders;
+    using System.Threading.Tasks;
 
     public class StopSchedulerCommand : AbstractOperationCommand<NoInput>
     {
@@ -10,9 +12,9 @@
         {
         }
 
-        protected override void PerformOperation(NoInput input)
+        protected override Task PerformOperation(NoInput input)
         {
-            Scheduler.Shutdown(false);
+            return Scheduler.Shutdown(false);
         }
     }
 }

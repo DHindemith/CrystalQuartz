@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace CrystalQuartz.Core.SchedulerProviders
 {
     using System;
@@ -9,16 +11,13 @@ namespace CrystalQuartz.Core.SchedulerProviders
     {
         protected IScheduler _scheduler;
 
-        protected virtual bool IsLazy
-        {
-            get { return false; }
-        }
+        protected virtual bool IsLazy => false;
 
         public void Init()
         {
             if (!IsLazy)
             {
-                LazyInit();    
+                LazyInit();
             }
         }
 
@@ -29,10 +28,10 @@ namespace CrystalQuartz.Core.SchedulerProviders
             {
                 properties = GetSchedulerProperties();
                 ISchedulerFactory schedulerFactory = new StdSchedulerFactory(properties);
-                _scheduler = schedulerFactory.GetScheduler();
+                _scheduler = schedulerFactory.GetScheduler().Result; // Not sure best way to handle this
                 InitScheduler(_scheduler);
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new SchedulerProviderException("Could not initialize scheduler", ex, properties);
             }
@@ -64,6 +63,8 @@ namespace CrystalQuartz.Core.SchedulerProviders
 
                 return _scheduler;
             }
+            set { _scheduler = value; }
         }
+
     }
 }

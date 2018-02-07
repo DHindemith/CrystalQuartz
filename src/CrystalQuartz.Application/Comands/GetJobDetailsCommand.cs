@@ -1,10 +1,12 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
-    using System.Linq;
     using CrystalQuartz.Application.Comands.Inputs;
     using CrystalQuartz.Application.Comands.Outputs;
     using CrystalQuartz.Core;
     using CrystalQuartz.Core.SchedulerProviders;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     public class GetJobDetailsCommand : AbstractSchedulerCommand<JobInput, JobDetailsOutput>
     {
@@ -12,9 +14,9 @@
         {
         }
 
-        protected override void InternalExecute(JobInput input, JobDetailsOutput output)
+        protected override async Task InternalExecute(JobInput input, JobDetailsOutput output)
         {
-            var detailsData = SchedulerDataProvider.GetJobDetailsData(input.Job, input.Group);
+            var detailsData = await SchedulerDataProvider.GetJobDetailsData(input.Job, input.Group);
 
             output.JobDataMap = detailsData
                 .JobDataMap

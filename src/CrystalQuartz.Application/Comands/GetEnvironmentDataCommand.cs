@@ -1,13 +1,15 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
     using CrystalQuartz.Application.Comands.Inputs;
     using CrystalQuartz.Application.Comands.Outputs;
     using CrystalQuartz.WebFramework.Commands;
     using Microsoft.Win32;
     using Quartz;
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
 
     public class GetEnvironmentDataCommand : AbstractCommand<NoInput, EnvironmentDataOutput>
     {
@@ -18,12 +20,14 @@
             _customCssUrl = customCssUrl;
         }
 
-        protected override void InternalExecute(NoInput input, EnvironmentDataOutput output)
+        protected override Task InternalExecute(NoInput input, EnvironmentDataOutput output)
         {
             output.SelfVersion = GetAssemblyVersion(Assembly.GetCallingAssembly());
-            output.QuartzVersion = GetAssemblyVersion(Assembly.GetAssembly(typeof (IScheduler)));
+            output.QuartzVersion = GetAssemblyVersion(Assembly.GetAssembly(typeof(IScheduler)));
             output.DotNetVersion = GetDotNetVersion();
             output.CustomCssUrl = _customCssUrl;
+
+            return Task.CompletedTask;
         }
 
         private string GetAssemblyVersion(Assembly assembly)

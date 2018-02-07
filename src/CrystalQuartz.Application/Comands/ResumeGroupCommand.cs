@@ -1,10 +1,12 @@
-﻿namespace CrystalQuartz.Application.Comands
+﻿
+namespace CrystalQuartz.Application.Comands
 {
     using CrystalQuartz.Application.Comands.Inputs;
     using CrystalQuartz.Core;
     using CrystalQuartz.Core.SchedulerProviders;
     using Quartz;
     using Quartz.Impl.Matchers;
+    using System.Threading.Tasks;
 
     public class ResumeGroupCommand : AbstractOperationCommand<GroupInput>
     {
@@ -12,9 +14,9 @@
         {
         }
 
-        protected override void PerformOperation(GroupInput input)
+        protected override Task PerformOperation(GroupInput input)
         {
-            Scheduler.ResumeJobs(GroupMatcher<JobKey>.GroupEquals(input.Group));
+            return Scheduler.ResumeJobs(GroupMatcher<JobKey>.GroupEquals(input.Group));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CrystalQuartz.Application.Comands.Inputs;
 using CrystalQuartz.Application.Comands.Outputs;
 using CrystalQuartz.Core;
@@ -10,12 +11,12 @@ namespace CrystalQuartz.Application.Comands
     public class AddTriggerCommand : AbstractSchedulerCommand<AddTriggerInput, CommandResultWithErrorDetails>
     {
         public AddTriggerCommand(
-            ISchedulerProvider schedulerProvider, 
+            ISchedulerProvider schedulerProvider,
             ISchedulerDataProvider schedulerDataProvider) : base(schedulerProvider, schedulerDataProvider)
         {
         }
 
-        protected override void InternalExecute(AddTriggerInput input, CommandResultWithErrorDetails output)
+        protected override Task InternalExecute(AddTriggerInput input, CommandResultWithErrorDetails output)
         {
             TriggerBuilder triggerBuilder = TriggerBuilder
                 .Create()
@@ -50,7 +51,7 @@ namespace CrystalQuartz.Application.Comands
                     throw new ArgumentOutOfRangeException();
             }
 
-            Scheduler.ScheduleJob(triggerBuilder.Build());
+            return Scheduler.ScheduleJob(triggerBuilder.Build());
         }
     }
 }

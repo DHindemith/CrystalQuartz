@@ -1,9 +1,10 @@
+using System.Collections.Generic;
+
 namespace CrystalQuartz.Web.Demo
 {
     using System.Collections.Specialized;
     using CrystalQuartz.Core.SchedulerProviders;
     using Quartz;
-    using Quartz.Collection;
 
     public class FakeProvider : StdSchedulerProvider
     {
@@ -35,7 +36,7 @@ namespace CrystalQuartz.Web.Demo
             var jobDetail2 = JobBuilder.Create<HelloJob>()
                 .WithIdentity("myJob2")
                 .Build();
-                
+
             // fire every 3 minutes
             var trigger2 = TriggerBuilder.Create()
                 .WithIdentity("myTrigger2")
@@ -52,7 +53,7 @@ namespace CrystalQuartz.Web.Demo
                 .WithSimpleSchedule(x => x.WithIntervalInSeconds(2).RepeatForever())
                 //.WithSimpleSchedule(x => x.WithIntervalInMinutes(5).RepeatForever())
                 .Build();
-                
+
             scheduler.ScheduleJob(trigger3);
 
             // construct job info
@@ -64,7 +65,7 @@ namespace CrystalQuartz.Web.Demo
             jobDetail4.JobDataMap.Add("key2", "value2");
             jobDetail4.JobDataMap.Add("key3", 1L);
             jobDetail4.JobDataMap.Add("key4", 1d);
-            
+
             // fire every hour
             ITrigger trigger4 = TriggerBuilder.Create()
                 .WithIdentity("myTrigger4", jobDetail4.Key.Group)
@@ -79,11 +80,11 @@ namespace CrystalQuartz.Web.Demo
                 .Build();
 
 
-            scheduler.ScheduleJob(jobDetail4, new HashSet<ITrigger>(new[] { trigger4, trigger5}), false);
-//            scheduler.ScheduleJob(jobDetail4, trigger5);
+            scheduler.ScheduleJob(jobDetail4, new HashSet<ITrigger>(new[] { trigger4, trigger5 }), false);
+            //            scheduler.ScheduleJob(jobDetail4, trigger5);
 
             scheduler.PauseJob(new JobKey("myJob4", "MyOwnGroup"));
-            scheduler.PauseTrigger(new TriggerKey("myTrigger3", "DEFAULT")); 
+            scheduler.PauseTrigger(new TriggerKey("myTrigger3", "DEFAULT"));
         }
     }
 }

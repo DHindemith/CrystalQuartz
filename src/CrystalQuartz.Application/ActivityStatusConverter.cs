@@ -14,10 +14,10 @@
 
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
         {
-            var status = (ActivityStatus) obj;
+            var status = (ActivityStatus)obj;
             var resut = new Dictionary<string, object>();
 
-            resut["Value"] = (int) status;
+            resut["Value"] = (int)status;
             resut["Code"] = status.ToString().ToLower();
             resut["Name"] = status.ToString();
 
@@ -26,7 +26,7 @@
 
         public override IEnumerable<Type> SupportedTypes
         {
-            get { yield return typeof (ActivityStatus); }
+            get { yield return typeof(ActivityStatus); }
         }
     }
 }

@@ -18,22 +18,22 @@
 
         public IDirectory Artifacts
         {
-            get { return Root/"Artifacts"; }
+            get { return Root / "Artifacts"; }
         }
 
         public IDirectory Src
         {
-            get { return Root/"src"; }
+            get { return Root / "src"; }
         }
 
         public IDirectory BuildAssets
         {
-            get { return Src/"CrystalQuartz.Build"/"Assets"; }
+            get { return Src / "CrystalQuartz.Build" / "Assets"; }
         }
 
         public IDirectory CrystalQuartz_Application
         {
-            get { return Src/"CrystalQuartz.Application"; }
+            get { return Src / "CrystalQuartz.Application"; }
         }
     }
 }

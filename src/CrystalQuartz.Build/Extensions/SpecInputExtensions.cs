@@ -8,7 +8,7 @@ namespace CrystalQuartz.Build.Extensions
     public static class SpecInputExtensions
     {
         public static GenerateNuGetSpecTask FillCommonProperties(
-            this GenerateNuGetSpecTask input, 
+            this GenerateNuGetSpecTask input,
             IDirectory dependenciesProject,
             string version,
             params IFile[] libBinaries)
@@ -22,7 +22,6 @@ namespace CrystalQuartz.Build.Extensions
                     .ProjectUrl("https://github.com/guryanovev/CrystalQuartz")
                     .Tags(".NET", "ASP.NET", "Quartz.NET", "Scheduler", "Job", "Trigger")
                     .WithDependenciesFromPackagesConfig(dependenciesProject, ignoreFrameworkVersion: true),
-
                 (x, file) => x.WithFile(file, "lib"));
         }
     }

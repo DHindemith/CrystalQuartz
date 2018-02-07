@@ -10,7 +10,7 @@
 
     public class MergeBinariesTask : Subflow
     {
-        private readonly string[] _webAssemblies = 
+        private readonly string[] _webAssemblies =
         {
             /*
              * Please note that because of bacward campatibility
@@ -24,7 +24,7 @@
             "CrystalQuartz.WebFramework.SystemWeb.dll"
         };
 
-        private readonly string[] _owinAssemblies = 
+        private readonly string[] _owinAssemblies =
         {
             "CrystalQuartz.Core.dll",
             "CrystalQuartz.WebFramework.dll",
@@ -60,17 +60,17 @@
 
         private ITask<Nothing> CreateMergeTask(string outputDllName, string[] inputAssembliesNames)
         {
-            IDirectory ilMergePackage = (_solution.Src/"packages").AsDirectory().Directories.Last(d => d.Name.StartsWith("ILRepack"));
+            IDirectory ilMergePackage = (_solution.Src / "packages").AsDirectory().Directories.Last(d => d.Name.StartsWith("ILRepack"));
 
             return new ExecTask
             {
-                ToolPath = ilMergePackage/"tools"/"ILRepack.exe",
+                ToolPath = ilMergePackage / "tools" / "ILRepack.exe",
 
                 Arguments = string.Format(
                     "/out:{0} {1}",
-                    _solution.Root/"bin"/"Merged"/outputDllName,
+                    _solution.Root / "bin" / "Merged" / outputDllName,
                     string.Join(" ",
-                        inputAssembliesNames.Select(dll => (_solution.Root/"bin"/_configuration/dll).AsFile().AbsolutePath)))
+                        inputAssembliesNames.Select(dll => (_solution.Root / "bin" / _configuration / dll).AsFile().AbsolutePath)))
             };
         }
     }

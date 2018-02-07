@@ -2,12 +2,15 @@ namespace CrystalQuartz.Core.Tests
 {
     using Quartz;
     using SchedulerProviders;
+    using System.Threading.Tasks;
 
     public class SchedulerProviderStub : ISchedulerProvider
     {
+        private readonly IScheduler _scheduler;
+
         public SchedulerProviderStub(IScheduler scheduler)
         {
-            Scheduler = scheduler;
+            _scheduler = scheduler;
         }
 
         public SchedulerProviderStub()
@@ -20,7 +23,8 @@ namespace CrystalQuartz.Core.Tests
 
         public IScheduler Scheduler
         {
-            get; set;
+            get { return _scheduler; }
+            set { }
         }
     }
 }

@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace CrystalQuartz.Core.SchedulerProviders
 {
     using Quartz;
@@ -13,6 +15,6 @@ namespace CrystalQuartz.Core.SchedulerProviders
         /// <summary>
         /// Gets scheduler instance. Should return same instance on every call.
         /// </summary>
-        IScheduler Scheduler { get; }
+        IScheduler Scheduler { get; set; }
     }
 }
